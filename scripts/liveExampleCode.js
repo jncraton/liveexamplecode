@@ -2,7 +2,7 @@
 function main() {
     let scriptTags = findCodeBlocks();
     let codeBlock = createCodeBlock();
-    codeBlock.addEventListener('input', executeCode); // TODO: Fix this
+    codeBlock.addEventListener('input', executeCode);
     insertAfter(codeBlock, scriptTags[scriptTags.length - 1]);
 }
 
