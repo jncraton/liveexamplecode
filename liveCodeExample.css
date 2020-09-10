@@ -12,4 +12,6 @@ h1 {
 textarea {
 	overflow: scroll;
 	resize: none;
+	width: 50em;
+	height: 20em;
 }
