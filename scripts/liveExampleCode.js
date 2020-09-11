@@ -1,18 +1,18 @@
 'use strict'
 function main() {
-    let scriptTags = findCodeBlocks();
+    let codeBlockContainers = findCodeBlocks();
     let codeBlock = createCodeBlock();
     codeBlock.addEventListener('input', executeCode);
-    insertAfter(codeBlock, scriptTags[scriptTags.length - 1]);
+    insertAfter(codeBlock, codeBlockContainers[codeBlockContainers.length - 1]);
 }
 
 function findCodeBlocks() {
-    return document.getElementsByClassName('codeBlockScripts');
+    return document.getElementsByClassName('live-js-code');
 }
 
 function createCodeBlock() {
     let codeBlock = document.createElement('textarea');
-    codeBlock.id = 'codeBlock';
+    codeBlock.className = 'codeBlock';
     codeBlock.name = 'codeBlock';
     codeBlock.rows = '10';
     codeBlock.cols = '80';
@@ -29,4 +29,4 @@ function insertAfter(newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
-main();
+window.onload = main;
