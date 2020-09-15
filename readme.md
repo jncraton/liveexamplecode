@@ -3,6 +3,8 @@ Live Example Code
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/98e2a756-f38d-4aa2-8704-12817c749656/deploy-status)](https://app.netlify.com/sites/liveexamplecode/deploys)
 
+[![Build Status](https://travis-ci.org/jncraton/liveexamplecode.svg?branch=master)](https://travis-ci.org/jncraton/liveexamplecode)
+
 Embeddable code examples for presentations and documents
 
 Example
