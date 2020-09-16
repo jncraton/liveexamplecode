@@ -1,32 +1,44 @@
 'use strict'
 function main() {
-    let codeBlockContainers = findCodeBlocks();
-    let codeBlock = createCodeBlock();
-    codeBlock.addEventListener('input', executeCode);
-    insertAfter(codeBlock, codeBlockContainers[codeBlockContainers.length - 1]);
+    initCodeBlocks();       
 }
 
 function findCodeBlocks() {
     return document.getElementsByClassName('live-js-code');
 }
 
-function createCodeBlock() {
-    let codeBlock = document.createElement('textarea');
-    codeBlock.className = 'codeBlock';
-    codeBlock.name = 'codeBlock';
-    codeBlock.rows = '10';
-    codeBlock.cols = '80';
-    codeBlock.placeholder = 'Enter your code here';
-    return codeBlock;
+function initCodeBlocks() {
+    let codeBlockContainers = findCodeBlocks();
+    for (let i = 0; i < codeBlockContainers.length; i++) {
+        createCodeBlocks(codeBlockContainers[i], i);
+    }
+}
+
+function createCodeBlocks(codeBlockContainer, idNum) {
+    let codeBlock = getTextArea(idNum);
+    let outputWrapper = document.createElement('pre');
+    let output = document.createElement('span');
+    output.id = 'jsCodeBlock' + idNum + 'Output';
+    codeBlockContainer.appendChild(codeBlock);
+    codeBlockContainer.appendChild(outputWrapper);
+    outputWrapper.appendChild(output);
+}
+
+function getTextArea(idNum) {
+    let textArea = document.createElement('textarea');
+    textArea.className = 'js-code';
+    textArea.id = 'jsCodeBlock' + idNum;
+    textArea.name = 'jsCodeBlock' + idNum;
+    textArea.placeholder = 'Enter your code here';
+    textArea.addEventListener('input', executeCode);
+
+    return textArea;
 }
 
 function executeCode(event) {
-    let output = document.getElementsByClassName('live-js-output');
-    output[0].innerHTML = event.target.value;
-}
-
-function insertAfter(newNode, referenceNode) {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+    let outputId = event.target.id + 'Output';
+    let output = document.getElementById(outputId);
+    output.innerHTML = event.target.value;
 }
 
 window.onload = main;
