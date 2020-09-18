@@ -38,7 +38,6 @@ function getTextArea(idNum) {
 function executeCode(event) {
     let outputId = event.target.id + 'Output';
     let output = document.getElementById(outputId);
-    //output.innerHTML = event.target.value;
     output.innerHTML = eval(event.target.value);
 }
 
