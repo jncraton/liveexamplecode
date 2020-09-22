@@ -1,0 +1,7 @@
+.js-code {
+    overflow: auto;
+    resize: none;
+    height: 70%;
+    width: 100%;
+    box-sizing: border-box;
+}
