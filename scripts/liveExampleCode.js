@@ -20,14 +20,20 @@ function createCodeBlocks(codeBlockContainer, idNum) {
     initalCode = decodeURIComponent(initalCode);
     codeBlockContainer.innerHTML = '';
     let codeBlock = getTextArea(idNum, initalCode);
-    let outputWrapper = document.createElement('pre');
+    let outputWrapper = document.createElement('div');
+    let targetWrapper = document.createElement('div');
     let output = document.createElement('span');
     let evelOutput = eval(initalCode);
     output.innerHTML = evelOutput;
     output.id = 'jsCodeBlock' + idNum + 'Output';
+    let target = document.createElement('span');
+    target.innerHTML = 'Target: ' + codeBlockContainer.getAttribute('data-target');
+    target.id = 'jsCodeBlock' + idNum + 'Target';
     codeBlockContainer.appendChild(codeBlock);
     codeBlockContainer.appendChild(outputWrapper);
     outputWrapper.appendChild(output);
+    codeBlockContainer.appendChild(targetWrapper);
+    targetWrapper.appendChild(target);
 }
 
 function getTextArea(idNum, initalCode) {
