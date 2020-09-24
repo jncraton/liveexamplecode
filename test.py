@@ -13,8 +13,8 @@ with webdriver.Firefox(options=options) as browser:
 
     assert('textarea' in browser.page_source)
 
-    textarea = browser.find_elements_by_tag_name("textarea")[0]
+    textarea = browser.find_elements_by_tag_name("textarea")[1]
 
-    textarea.send_keys("Math.sin(1)")
+    textarea.send_keys("Math.sin(1);")
 
     assert('0.8414709848078965' in browser.page_source)
