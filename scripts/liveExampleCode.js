@@ -15,9 +15,7 @@ function initCodeBlocks() {
 }
 
 function createCodeBlocks(codeBlockContainer, idNum) {
-    let initalCode = codeBlockContainer.innerHTML;
-    initalCode = initalCode.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
-    initalCode = decodeURIComponent(initalCode);
+    let initalCode = codeBlockContainer.innerText;
     codeBlockContainer.innerHTML = '';
     let codeBlock = getTextArea(idNum, initalCode);
     let outputWrapper = document.createElement('div');
