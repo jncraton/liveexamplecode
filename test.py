@@ -28,7 +28,7 @@ with webdriver.Firefox(options=options) as browser:
     assert ('Good' in browser.page_source)
 
     # look for the code the teacher writes in the _____ html
-    assert ('for(let i = 0; i < 6; i++) {\n\tconsole.log(i);\n}' in browser.page_source)
+    assert ('for(let i = 0; i &lt; 6; i++) {\n\tconsole.log(i);\n}' in browser.page_source)
 
 with webdriver.Firefox(options=options) as browser:
     browser.get(f'file://{os.getcwd()}/index.html')
