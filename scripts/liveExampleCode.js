@@ -72,17 +72,30 @@ function executeCode(output, status, target, code) {
     }
     try {
         let arr = [];
-        let targetCode = target.innerHTML;
         console.log = (msg) => { arr.push(msg) };
-        eval(code);
-        output.innerHTML = arr.join(' ');
 
-        if (targetCode.includes(arr.join(' '))) {
-            status.innerHTML = 'Good';
+        let targetCode = target.innerHTML.replace('Target: ','');
+        let evalOutput = eval(code);
+        let consoleOutput = arr.join(' ');
+        
+        if(consoleOutput != '') {
+            output.innerHTML = consoleOutput;
+            if (targetCode === consoleOutput) {
+                status.innerHTML = 'Good';
+            }
+            else {
+                status.innerHTML = 'Bad';
+            }
         }
         else {
-            status.innerHTML = 'Bad';
-        }
+            output.innerHTML = evalOutput;
+            if (targetCode === evalOutput) {
+                status.innerHTML = 'Good';
+            }
+            else {
+                status.innerHTML = 'Bad';
+            }
+        }      
     }
     catch(e) {
         output.innerHTML = e;

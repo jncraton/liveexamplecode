@@ -43,4 +43,3 @@ with webdriver.Firefox(options=options) as browser:
     textarea = browser.find_elements_by_tag_name("textarea")[1]
     textarea.send_keys("for(let i = 0; i < 7; i++) {\n\tconsole.log(i);\n}")
     assert ('Bad' in browser.page_source)
-
