@@ -15,30 +15,80 @@ function initCodeBlocks() {
 }
 
 function createCodeBlocks(codeBlockContainer, idNum) {
-    let codeBlock = getTextArea(idNum);
-    let outputWrapper = document.createElement('pre');
+    let initalCode = codeBlockContainer.innerHTML;
+    initalCode = initalCode.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
+    initalCode = decodeURIComponent(initalCode);
+    codeBlockContainer.innerHTML = '';
+    let codeBlock = getTextArea(idNum, initalCode);
+    let outputWrapper = document.createElement('div');
+    let targetWrapper = document.createElement('div');
+    let statusWrapper = document.createElement('div');
     let output = document.createElement('span');
+    let target = document.createElement('span');
+    let status = document.createElement('span');
     output.id = 'jsCodeBlock' + idNum + 'Output';
+    status.id = 'jsCodeBlock' + idNum + 'Status';
+    target.id = 'jsCodeBlock' + idNum + 'Target';
+    target.innerHTML = 'Target: ' + codeBlockContainer.getAttribute('data-target');
+    target.id = 'jsCodeBlock' + idNum + 'Target';
     codeBlockContainer.appendChild(codeBlock);
     codeBlockContainer.appendChild(outputWrapper);
     outputWrapper.appendChild(output);
+    codeBlockContainer.appendChild(targetWrapper);
+    targetWrapper.appendChild(target);
+    codeBlockContainer.appendChild(statusWrapper);
+    statusWrapper.appendChild(status);
+    executeCode(output, status, target, initalCode);
 }
 
-function getTextArea(idNum) {
+function getTextArea(idNum, initalCode) {
     let textArea = document.createElement('textarea');
+    textArea.innerHTML = initalCode;
     textArea.className = 'js-code';
     textArea.id = 'jsCodeBlock' + idNum;
     textArea.name = 'jsCodeBlock' + idNum;
     textArea.placeholder = 'Enter your code here';
-    textArea.addEventListener('input', executeCode);
+    textArea.addEventListener('input', executeCodeEvent); 
 
     return textArea;
 }
 
-function executeCode(event) {
+function executeCodeEvent(event) {
     let outputId = event.target.id + 'Output';
     let output = document.getElementById(outputId);
-    output.innerHTML = eval(event.target.value);
+    let statusId = event.target.id + 'Status';
+    let status = document.getElementById(statusId);
+    let targetId = event.target.id + 'Target';
+    let target = document.getElementById(targetId);
+    let code = event.target.value;
+    executeCode(output, status, target, code);
 }
+
+function executeCode(output, status, target, code) {
+    if (code === '') {
+        output.innerHTML = 'No code found...';
+        status.innerHTML = '';
+        return;
+    }
+    try {
+        let arr = [];
+        let targetCode = target.innerHTML;
+        console.log = (msg) => { arr.push(msg) };
+        eval(code);
+        output.innerHTML = arr.join(' ');
+
+        if (targetCode.includes(arr.join(' '))) {
+            status.innerHTML = 'Good';
+        }
+        else {
+            status.innerHTML = 'Bad';
+        }
+    }
+    catch(e) {
+        output.innerHTML = e;
+        status.innerHTML = 'Bad';
+    }
+}
+
 
 window.onload = main;
