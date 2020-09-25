@@ -95,7 +95,7 @@ function executeCode(output, status, target, code) {
             else {
                 status.innerHTML = 'Bad';
             }
-        }        
+        }      
     }
     catch(e) {
         output.innerHTML = e;
